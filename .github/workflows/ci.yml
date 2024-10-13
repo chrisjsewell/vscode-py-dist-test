@@ -62,13 +62,14 @@ jobs:
       with:
         cache: 'npm'
         cache-dependency-path: vscode/package-lock.json
-    - name: install vsce
-      run: npm install -g vsce
     - name: Install the latest version of rye
       uses: eifinger/setup-rye@v4
     - run: rye sync
+    - run: rye run "bundle:_download"
     - name: Create Python bundle
-      run: rye run bundle:prod
+      run: rye run "bundle:prod"
+    - name: install vsce
+      run: npm install -g vsce
     - name: Insall npm dependencies
       working-directory: vscode
       run: npm ci
