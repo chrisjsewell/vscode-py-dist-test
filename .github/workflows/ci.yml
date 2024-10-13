@@ -43,6 +43,7 @@ jobs:
       env:
         RYE_VERSION: "latest"
         RYE_INSTALL_OPTION: "--yes"
+    - run: rye sync
     - name: Run tests
       run: rye test -a
 
