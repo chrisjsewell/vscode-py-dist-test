@@ -21,9 +21,11 @@ esbuild.mjs
 
 # lets move some things from the python bundle that we don't need,
 # but take up a lot of space
-**/lib/tk*/
-**/lib/tcl*/
-**/lib/itcl*/
-**/bin/pip*
-**/site-packages/pip*
-**/site-packages/pip*/
+server/python/lib/tk*/
+server/python/lib/tcl*/
+server/python/lib/itcl*/
+server/python/bin/pip*
+server/python/**/site-packages/pip*
+server/python/**/site-packages/pip*/
+# this folder contains duplicated case-sensitive files that make vsce fail on linux
+server/python/share/terminfo
