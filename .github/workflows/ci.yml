@@ -41,7 +41,7 @@ jobs:
     - name: Run tests
       run: rye test -a
 
-  vsce_package:
+  vsix_package:
 
     name: Package VS Code Extension (${{ matrix.os }})
     strategy:
@@ -52,6 +52,7 @@ jobs:
             target: linux-x64
           - os: macos-latest
             target: darwin-arm64
+          # TODO add windows distribution
           # - os: windows-latest
           #   target: win32-x64
     runs-on: ${{ matrix.os }}
@@ -81,3 +82,43 @@ jobs:
       with:
         name: VS Code Extension (${{ matrix.target }})
         path: vscode/extension.${{ matrix.target }}.vsix
+
+  vsix_publish:
+
+    name: Publish VS Code Extension (${{ matrix.os }})
+    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+    needs:
+      - pre-commit
+      - pytest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: linux-x64
+          - os: macos-latest
+            target: darwin-arm64
+          # TODO add windows distribution
+          # - os: windows-latest
+          #   target: win32-x64
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        cache: 'npm'
+        cache-dependency-path: vscode/package-lock.json
+    - name: Install the latest version of rye
+      uses: eifinger/setup-rye@v4
+    - run: rye sync
+    - name: Create Python bundle
+      run: rye run bundle:prod
+    - name: install vsce
+      run: npm install -g vsce
+    - name: Insall npm dependencies
+      working-directory: vscode
+      run: npm ci
+    - name: Run vsce package
+      working-directory: vscode
+      run: vsce publish -t ${{ matrix.target }} -p ${{ secrets.MARKETPLACE_PAT }}

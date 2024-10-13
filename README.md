@@ -6,6 +6,8 @@ The goal is to have a single `.vsix` file (per architecture) that can be install
 
 ## Usage
 
+Install from: <https://marketplace.visualstudio.com/items?itemName=chrisjsewell.test-lsp>
+
 Very simply, once the extension is installed, open a Markdown file and you should see the Python LSP start up with a pop-up message: "Initialized test server!".
 
 You can also open the output panel and see the logs from the language server,
@@ -31,6 +33,12 @@ For developing the code:
 
 - Run `rye sync` to create a virtual environment with the packages installed in development mode and `rye test -a` to run the tests
 - Use [pre-commit](https://pre-commit.com/) to run the linters and formatters
+
+To distribute the extension:
+
+- Update the version with `rye run bumpver:patch` (or `minor`/`major`)
+- Create a release on GitHub with the tag `vX.Y.Z`
+- The GitHub action will run the CI (on new tags) and create/upload the `.vsix` files (per architecture) to the Marketplace
 
 ## Considerations
 

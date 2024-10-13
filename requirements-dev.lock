@@ -15,6 +15,7 @@ annotated-types==0.7.0
 attrs==24.2.0
     # via cattrs
     # via lsprotocol
+bumpver==2023.1129
 cattrs==24.1.2
     # via lsprotocol
     # via pygls
@@ -22,12 +23,20 @@ certifi==2024.8.30
     # via requests
 charset-normalizer==3.4.0
     # via requests
-colorama==0.4.6 ; sys_platform == 'win32'
+click==8.1.7
+    # via bumpver
+colorama==0.4.6
+    # via bumpver
+    # via click
     # via pytest
 idna==3.10
     # via requests
 iniconfig==2.0.0
     # via pytest
+lexid==2021.1006
+    # via bumpver
+looseversion==1.3.0
+    # via bumpver
 lsprotocol==2023.0.1
     # via pygls
 packaging==24.1
@@ -45,6 +54,8 @@ pygls==1.3.1
     # via lsp-server
 pytest==8.3.3
 requests==2.32.3
+toml==0.10.2
+    # via bumpver
 tomli==2.0.2
     # via pip-licenses
 typing-extensions==4.12.2
