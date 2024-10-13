@@ -22,8 +22,8 @@ members = ["python/*"]
 
 [tool.rye.scripts]
 "bundle:_download" = "python scripts/download_python.py --overwrite ../vscode/server"
-"bundle:_install-dev" = "vscode/server/python/bin/pip install --no-deps -r requirements.lock"
 "bundle:_create-prod-lock" = "python scripts/create_prod_lock.py"
+"bundle:_install-dev" = "vscode/server/python/bin/pip install --no-deps -r requirements.lock"
 "bundle:_install-prod" = "vscode/server/python/bin/pip install --no-deps -r requirements-prod.lock"
 "bundle:dev" = { chain = ["bundle:_download", "bundle:_install-dev"] }
 "bundle:prod" = { chain = ["bundle:_download", "bundle:_create-prod-lock", "bundle:_install-prod"] }

@@ -29,3 +29,5 @@ server/python/**/site-packages/pip*
 server/python/**/site-packages/pip*/
 # this folder contains duplicated case-sensitive files that make vsce fail on linux
 server/python/share/terminfo
+
+# TODO ignoring files in Windows
