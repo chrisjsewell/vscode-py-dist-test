@@ -66,7 +66,9 @@ jobs:
       uses: eifinger/setup-rye@v4
     - run: rye sync
     - run: rye run bundle:_download
-    - run: rye run "bundle:_create-prod-lock"
+    - run: rye run bundle:_create-prod-lock
+    - if: matrix.os == 'windows-latest'
+      run: dir
     - run: rye run bundle:_install-prod
     - name: Create Python bundle
       run: rye run bundle:prod
