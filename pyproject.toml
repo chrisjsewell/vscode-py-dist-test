@@ -1,6 +1,6 @@
 [project]
 name = "python-monorepo"
-version = "0.0.0"
+version = "0.0.2"
 description = "A monorepo for the python LSP server"
 authors = [{ name = "Chris Sewell" }]
 readme = "README.md"
@@ -15,18 +15,46 @@ dev-dependencies = [
     "pytest>=8.3.3",
     "requests>=2.32.3",
     "pip-licenses>=5.0.0",
+    "bumpver>=2023.1129",
 ]
 
 [tool.rye.workspace]
 members = ["python/*"]
 
 [tool.rye.scripts]
+"bumpver:patch" = "bumpver update --patch --no-fetch --no-push"
+"bumpver:minor" = "bumpver update --minor --no-fetch --no-push"
+"bumpver:major" = "bumpver update --major --no-fetch --no-push"
 "bundle:_download" = "python scripts/download_python.py --overwrite ../vscode/server"
 "bundle:_create-prod-lock" = "python scripts/create_prod_lock.py"
 "bundle:_install-dev" = "vscode/server/python/bin/pip install --no-deps -r requirements.lock"
 "bundle:_install-prod" = "vscode/server/python/bin/pip install --no-deps -r requirements-prod.lock"
 "bundle:dev" = { chain = ["bundle:_download", "bundle:_install-dev"] }
 "bundle:prod" = { chain = ["bundle:_download", "bundle:_create-prod-lock", "bundle:_install-prod"] }
+
+[tool.bumpver]
+current_version = "v0.0.2"
+version_pattern = "vMAJOR.MINOR.PATCH[PYTAGNUM]"
+commit_message = "bump project versions {old_version} -> {new_version}"
+tag_message = "{old_version} -> {new_version}"
+tag_scope = "default"
+pre_commit_hook = ""
+post_commit_hook = ""
+commit = true
+tag = true
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    '^version = "{pep440_version}"$',
+    '^current_version = "{version}"$',
+]
+"python/*/src/*/__init__.py" = [
+    '^__version__ = "{pep440_version}"$',
+]
+"vscode/package.json" = [
+    '"version": "{pep440_version}",$',
+]
 
 [tool.ruff.lint]
 extend-select = [
