@@ -37,13 +37,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install the latest version of rye
-      run: |
-        curl -sSf https://rye.astral.sh/get | bash
-        echo "$HOME/.rye/shims" >> $GITHUB_PATH
-      env:
-        RYE_VERSION: "latest"
-        RYE_INSTALL_OPTION: "--yes"
-    - run: rye sync
+      uses: eifinger/setup-rye@v4
     - name: Run tests
       run: rye test -a
 
@@ -71,13 +65,7 @@ jobs:
     - name: install vsce
       run: npm install -g vsce
     - name: Install the latest version of rye
-      run: |
-        curl -sSf https://rye.astral.sh/get | bash
-        echo "$HOME/.rye/shims" >> $GITHUB_PATH
-      env:
-        RYE_VERSION: "latest"
-        RYE_INSTALL_OPTION: "--yes"
-    - run: rye sync
+      uses: eifinger/setup-rye@v4
     - name: Create Python bundle
       run: rye run bundle:prod
     - name: Insall npm dependencies
