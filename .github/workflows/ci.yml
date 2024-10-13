@@ -66,6 +66,7 @@ jobs:
       run: npm install -g vsce
     - name: Install the latest version of rye
       uses: eifinger/setup-rye@v4
+    - run: rye sync
     - name: Create Python bundle
       run: rye run bundle:prod
     - name: Insall npm dependencies
