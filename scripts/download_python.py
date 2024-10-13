@@ -7,7 +7,7 @@ See also:
 
 import argparse
 import hashlib
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import platform
 import shutil
 import tarfile
@@ -93,7 +93,7 @@ def download_python(dest: Path, version: str, arch: str, overwrite: bool) -> str
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("dest", type=Path, help="Destination directory")
+    parser.add_argument("dest", type=PurePosixPath, help="Destination directory")
     parser.add_argument(
         "--python-version", default=DEFAULT_PYTHON_VERSION, help="Python version"
     )
