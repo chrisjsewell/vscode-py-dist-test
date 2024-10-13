@@ -119,6 +119,6 @@ jobs:
     - name: Insall npm dependencies
       working-directory: vscode
       run: npm ci
-    - name: Run vsce package
+    - name: Run vsce publish
       working-directory: vscode
       run: vsce publish -t ${{ matrix.target }} -p ${{ secrets.MARKETPLACE_PAT }}
