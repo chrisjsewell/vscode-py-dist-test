@@ -36,7 +36,7 @@ def decide_platform() -> str:
         elif arch in ("aarch64", "arm64"):
             return "aarch64-unknown-linux-gnu"
     elif system == "Windows":  # noqa: SIM102
-        if arch in ("x64", "x86_64"):
+        if arch.lower() in ("x64", "x86_64", "amd64"):
             return "x86_64-pc-windows-msvc-shared"
 
     raise ValueError(f"Unsupported platform: {system} {arch}")
