@@ -128,3 +128,15 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+*.egg-info
+__pycache__
+.ruff_cache
+.pytest_cache
+.mypy_cache
+.venv
+.tox
+.coverage
+dist
+.DS_Store
+requirements-prod.lock

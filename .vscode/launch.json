@@ -1,0 +1,33 @@
+// A launch configuration that compiles the extension and then opens it inside a new window
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "VSCode Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceRoot}",
+			],
+			"outFiles": ["${workspaceRoot}/vscode/dist/**/*.js"],
+			"preLaunchTask": "watch",
+			"env": {
+				"DEBUGPY_ENABLED": "False"
+			},
+			"autoAttachChildProcesses": true,
+		},
+		{
+			"name": "Language Server E2E Test",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceRoot}",
+				"--extensionTestsPath=${workspaceRoot}/vscode/dist/test/index",
+				"${workspaceRoot}/vscode/testFixture"
+			],
+			"outFiles": ["${workspaceRoot}}/vscode/dist/test/**/*.js"]
+		}
+	]
+}

@@ -1,0 +1,56 @@
+[project]
+name = "python-monorepo"
+version = "0.0.0"
+description = "A monorepo for the python LSP server"
+authors = [{ name = "Chris Sewell" }]
+readme = "README.md"
+requires-python = "~=3.12.3"
+dependencies = []
+
+[tool.rye]
+managed = true
+virtual = true
+universal = true
+dev-dependencies = [
+    "pytest>=8.3.3",
+    "requests>=2.32.3",
+    "pip-licenses>=5.0.0",
+]
+
+[tool.rye.workspace]
+members = ["python/*"]
+
+[tool.rye.scripts]
+"bundle:_download" = "python scripts/download_python.py --overwrite ../vscode/server"
+"bundle:_install-dev" = "vscode/server/python/bin/pip install --no-deps -r requirements.lock"
+"bundle:_create-prod-lock" = "python scripts/create_prod_lock.py"
+"bundle:_install-prod" = "vscode/server/python/bin/pip install --no-deps -r requirements-prod.lock"
+"bundle:dev" = { chain = ["bundle:_download", "bundle:_install-dev"] }
+"bundle:prod" = { chain = ["bundle:_download", "bundle:_create-prod-lock", "bundle:_install-prod"] }
+
+[tool.ruff.lint]
+extend-select = [
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "FURB",# refurb (modernising code)
+    "I",   # isort
+    "ICN", # flake8-import-conventions
+    "ISC", # flake8-implicit-str-concat
+    "N",   # pep8-naming
+    "PERF",# perflint (performance anti-patterns)
+    "PGH", # pygrep-hooks
+    "PIE", # flake8-pie
+    "PL",  # pylint
+    "PTH", # flake8-use-pathlib
+    "RUF", # Ruff-specific rules
+    "SIM", # flake8-simplify
+    "UP",  # pyupgrade
+    "T20", # flake8-print
+]
+extend-ignore = [
+    "ISC001",    # implicit-str-concat
+]
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+force-sort-within-sections = true
