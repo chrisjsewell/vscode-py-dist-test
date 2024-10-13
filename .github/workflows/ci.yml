@@ -31,7 +31,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
 
-    name: Pytest (${{ matrix.os-version }})
+    name: Pytest (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -76,6 +76,7 @@ jobs:
       env:
         RYE_VERSION: "latest"
         RYE_INSTALL_OPTION: "--yes"
+    - run: rye sync
     - name: Create Python bundle
       run: rye run bundle:prod
     - name: Insall npm dependencies
