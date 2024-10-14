@@ -61,9 +61,11 @@ jobs:
     - name: Insall npm dependencies
       working-directory: vscode
       run: npm ci
-    - name: Run tests
-      working-directory: vscode
-      run: npm test
+    - name: Run headless tests
+      uses: coactions/setup-xvfb@v1
+      with:
+          run: npm test
+          working-directory: vscode
 
   vsix_package:
 
