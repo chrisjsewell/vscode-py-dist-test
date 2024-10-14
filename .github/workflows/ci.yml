@@ -43,9 +43,13 @@ jobs:
 
   extension_test:
 
-    name: Test VS Code Extension
-    # TODO add macos/windows test matrix
-    runs-on: ubuntu-latest
+    name: Test VS Code Extension (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    # TODO add windows to test matrix
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
