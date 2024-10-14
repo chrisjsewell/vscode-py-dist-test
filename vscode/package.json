@@ -30,7 +30,8 @@
     "@types/vscode": "^1.75.1",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
-    "@vscode/test-electron": "^2.3.9",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
     "esbuild": "^0.24.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -50,6 +51,8 @@
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.mjs --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "test:compile": "node esbuild-tests.mjs",
+    "test": "npm run compile && npm run test:compile && vscode-test",
     "package": "npm run check-types && node esbuild.mjs --production",
     "vscode:prepublish": "npm run package"
   }

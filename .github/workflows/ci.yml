@@ -41,6 +41,45 @@ jobs:
     - name: Run tests
       run: rye test -a
 
+  extension_test:
+
+    name: Test VS Code Extension (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    # TODO add windows to test matrix
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        cache: 'npm'
+        cache-dependency-path: vscode/package-lock.json
+    - name: Install the latest version of rye
+      uses: eifinger/setup-rye@v4
+    - run: rye sync
+    - name: Create Python bundle
+      run: rye run bundle:prod
+    - name: Insall npm dependencies
+      working-directory: vscode
+      run: npm ci
+    - name: Find VS Code stable release version
+      id: code-stable
+      run: |
+        echo "VSCODE_VERSION=`curl --silent https://update.code.visualstudio.com/api/releases/stable | jq -r '.[0]'`" >> "$GITHUB_OUTPUT"
+    - name: Cache VS Code download
+      uses: actions/cache@v4
+      with:
+        path: vscode/.vscode-test
+        key: vscode-test-cache-${{ matrix.os }}-${{ steps.code-stable.outputs.VSCODE_VERSION }}
+    - name: Run headless tests
+      uses: coactions/setup-xvfb@v1
+      with:
+        run: npm test
+        working-directory: vscode
+
   vsix_package:
 
     name: Package VS Code Extension (${{ matrix.os }})
