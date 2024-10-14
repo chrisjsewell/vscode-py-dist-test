@@ -11,4 +11,12 @@ def initialize(ls: LanguageServer, params: types.InitializeParams) -> None:
     ls.show_message("Initialized test server!")
 
 
+@server.command("test-lsp.server.getDebugInformation")
+def debug_information(ls: LanguageServer, params) -> dict[str, str]:
+    return {
+        "name": ls.name,
+        "version": __version__,
+    }
+
+
 server.start_io()

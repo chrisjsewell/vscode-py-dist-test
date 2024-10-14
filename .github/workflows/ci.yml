@@ -41,6 +41,30 @@ jobs:
     - name: Run tests
       run: rye test -a
 
+  extension_test:
+
+    name: Test VS Code Extension
+    # TODO add macos/windows test matrix
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        cache: 'npm'
+        cache-dependency-path: vscode/package-lock.json
+    - name: Install the latest version of rye
+      uses: eifinger/setup-rye@v4
+    - run: rye sync
+    - name: Create Python bundle
+      run: rye run bundle:prod
+    - name: Insall npm dependencies
+      working-directory: vscode
+      run: npm ci
+    - name: Run tests
+      working-directory: vscode
+      run: npm test
+
   vsix_package:
 
     name: Package VS Code Extension (${{ matrix.os }})

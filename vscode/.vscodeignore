@@ -19,6 +19,12 @@
 tsconfig.json
 esbuild.mjs
 
+# test infrastructure
+esbuild-tests.mjs
+.vscode-test.js
+tests/
+out/
+
 # lets move some things from the python bundle that we don't need,
 # but take up a lot of space
 server/python/lib/tk*/
