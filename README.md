@@ -28,11 +28,12 @@ To "setup" a development version of the extension:
 2. run `cd vscode; npm ci` to install the dependencies for the VSCode extension
 3. run `rye run bundle:dev` to create the bundled Python environment, with local packages installed in development mode, or `rye run bundle:prod` to install them in production mode
 4. Press `F5` to start the extension in a new VSCode window
+5. Use `cd vscode; npm test` to run the automated VSCode extension tests
 
 For developing the code:
 
-- Run `rye sync` to create a virtual environment with the packages installed in development mode and `rye test -a` to run the tests
 - Use [pre-commit](https://pre-commit.com/) to run the linters and formatters
+- Run `rye sync` to create a virtual environment with the packages installed in development mode and `rye test -a` to run the Python tests
 
 To distribute the extension:
 
