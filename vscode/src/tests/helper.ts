@@ -6,7 +6,7 @@ export async function activate() {
   const ext = vscode.extensions.getExtension("chrisjsewell.test-lsp")!;
   await ext.activate();
   try {
-    await sleep(1000); // Wait for server activation
+    await sleep(1500); // Wait for server activation
   } catch (e) {
     console.error(e);
   }
