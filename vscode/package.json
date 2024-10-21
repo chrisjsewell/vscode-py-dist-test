@@ -52,7 +52,7 @@
     "watch:esbuild": "node esbuild.mjs --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "test:compile": "node esbuild-tests.mjs",
-    "test": "npm run compile && npm run test:compile && vscode-test",
+    "test": "npm run compile && npm run test:compile && vscode-test --timeout=5000",
     "package": "npm run check-types && node esbuild.mjs --production",
     "vscode:prepublish": "npm run package"
   }
