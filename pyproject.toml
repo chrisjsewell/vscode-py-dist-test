@@ -1,6 +1,6 @@
 [project]
 name = "python-monorepo"
-version = "0.0.2"
+version = "0.1.0"
 description = "A monorepo for the python LSP server"
 authors = [{ name = "Chris Sewell" }]
 readme = "README.md"
@@ -33,7 +33,7 @@ members = ["python/*"]
 "bundle:prod" = { chain = ["bundle:_download", "bundle:_create-prod-lock", "bundle:_install-prod"] }
 
 [tool.bumpver]
-current_version = "v0.0.2"
+current_version = "v0.1.0"
 version_pattern = "vMAJOR.MINOR.PATCH[PYTAGNUM]"
 commit_message = "bump project versions {old_version} -> {new_version}"
 tag_message = "{old_version} -> {new_version}"
