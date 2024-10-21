@@ -20,6 +20,10 @@ cattrs==24.1.2
     # via pygls
 lsprotocol==2023.0.1
     # via pygls
+numpy==2.1.2
+    # via pyarrow
+pyarrow==17.0.0
+    # via lsp-server
 pydantic==2.9.2
     # via lsp-server
 pydantic-core==2.23.4
